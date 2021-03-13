@@ -5,6 +5,7 @@ import Login from "@/components/Login/Login";
 import BuyToken from "@/components/BuyToken/BuyToken";
 import HomeView from "@/components/HomeView/HomeView";
 import Indecency from "@/components/Uploader/Indecency";
+import Echarts from "@/components/Uploader/Echarts";
 
 Vue.use(VueRouter)
 
@@ -18,12 +19,16 @@ const routes = [
         component: Test,
         children: [
             {
+                path: '',
+                component: Indecency
+            },
+            {
                 path: 'indecency',
                 component: Indecency
             },
             {
                 path: 'recognition',
-                component: Indecency
+                component: Echarts
             }
         ]
     },

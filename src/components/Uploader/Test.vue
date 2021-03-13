@@ -34,7 +34,7 @@
                     },
                     {
                         id: '1',
-                        name: '情感分析',
+                        name: '昊神分析',
                         route: '/test/recognition'
                     }
                 ]
@@ -61,7 +61,7 @@
 
     #nav li {
         display: inline;
-        position: relative;
+
         margin: 0 0.6em;
     }
 

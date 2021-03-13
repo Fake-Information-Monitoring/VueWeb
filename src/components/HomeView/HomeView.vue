@@ -1,9 +1,9 @@
 <template>
     <div class="home-view">
-        <Introduction id="introduction" class="view"/>
-        <Advantages id="advantage" class="view"/>
-        <Recommend id="recommend" class="view"/>
-        <News id="news" class="view"/>
+        <Introduction class="view"/>
+        <Advantages class="view"/>
+        <Recommend class="view"/>
+        <News class="view"/>
     </div>
 
 </template>
@@ -22,9 +22,12 @@
 </script>
 
 <style scoped>
+
+
     .view {
         width: 80%;
         margin-left: 10%;
+        height: auto;
     }
 
     #news {

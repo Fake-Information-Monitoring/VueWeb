@@ -2,7 +2,7 @@
     <div class="header">
         <div class="logo">
             <a href="/" class="web-title">
-                <img src="https://vuejs.bootcss.com/images/logo.png" alt="vue logo">
+                <img src="../assets/MainLogo.png">
                 <span>虚假信息云判官</span>
             </a>
         </div>
@@ -30,7 +30,7 @@
                     {
                         id: 1,
                         route: '/buytoken',
-                        name: '购买token'
+                        name: '接口使用申请'
                     },
                     {
                         id: 2,

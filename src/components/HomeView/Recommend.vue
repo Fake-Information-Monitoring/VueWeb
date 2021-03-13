@@ -1,19 +1,23 @@
 <template>
-    <div class="recommend">
-        <div class="title">
-            <p class="content">推荐场景</p>
-        </div>
-        <div class="table">
-            <div class="list" v-for="list in lists" :key="list.id">
-                <div class="picture">
-                    <img :src=list.picture alt="vue logo">
-                </div>
-                <div class="link">
-                    <router-link :to=list.route class="route">{{list.name}}</router-link>
-                    <p class="introduction">{{list.introduction}}</p>
+    <div id="recommend">
+        <div>
+            <div class="title">
+                <h1 class="content">推荐场景</h1>
+            </div>
+            <div class="table">
+                <div class="list" v-for="list in lists" :key="list.id">
+                        <div class="picture">
+                            <img :src=list.picture alt="vue logo">
+                        </div>
+                        <div class="link">
+                            <router-link :to=list.route class="route">{{list.name}}</router-link>
+                            <p class="introduction">{{list.introduction}}</p>
+                    </div>
+
                 </div>
             </div>
         </div>
+
     </div>
 
 
@@ -60,33 +64,33 @@
 </script>
 <style scoped>
 
-    .recommend {
-        width: 80%;
-        height: 30%;
+    #recommend {
+        margin-top: 5%;
+        padding-bottom: 5%;
+        border-bottom: 1px solid rgba(215, 215, 215, 100);
     }
 
     .title {
         text-align: center;
-        height: 20%;
+        height: auto;
     }
 
     .content {
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin-top: 1%;
+        margin-bottom: 1%;
         line-height: 20px;
+        color: rgba(50, 189, 254, 100);
     }
 
     .table {
-
-        height: 80%;
+        margin-top: 2.5%;
+        height: auto;
     }
 
     .list {
-        display: flex;
         width: 50%;
-        float: left;
         box-sizing: border-box;
-        /*border: 1px solid red;*/
+        display: inline-flex;
         line-height: 40px;
     }
 
@@ -107,7 +111,7 @@
 
     .route {
         width: 80%;
-        display: flex;
+        display: inline;
     }
 
     .introduction {

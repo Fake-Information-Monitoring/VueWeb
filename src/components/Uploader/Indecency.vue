@@ -9,8 +9,8 @@
         </div>
         <div class="inner">
             <div class="inner-left">
-                <div class="panel">
-                    <div></div>
+                <div class="panel-left">
+
                     <textarea placeholder="最多输入500字" rows="15" maxlength="500" class="text">
                         腾讯云自然语言处理（Natural Language Process，NLP）深度整合了腾讯内部顶级的 NLP 技术，依托千亿级中文语料累积，提供16项智能文本处理能力，包括智能分词、实体识别、文本纠错、情感分析、文本分类、词向量、关键词提取、自动摘要、智能闲聊、百科知识图谱查询等。
                     </textarea>
@@ -24,31 +24,37 @@
                     </div>
                 </div>
                 <div class="text-list">
-                    <div v-for="list in lists" :key="list">{{list}}</div>
+                    <!--                    <div v-for="list in lists" :key="list">{{list}}</div>-->
                 </div>
             </div>
-            <div class="inner-right"></div>
-            <div>
-                <div v-for="list in lists" :key="list">{{list}}</div>
+            <div class="inner-right">
+                <div class="panel-right">
+                    <div class="echarts">
+                        <Echarts/>
+                    </div>
+                </div>
             </div>
+
+
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "Indecency"
+    import Echarts from "@/components/Uploader/Echarts";
 
+    export default {
+        name: "Indecency",
+        components: {Echarts}
     }
 </script>
 
 <style scoped>
     .indecency {
-
         display: flex;
         max-width: 1180px;
         height: 866px;
-        position: relative;
+        /*position: relative;*/
         flex-direction: column;
         justify-content: flex-start;
         box-sizing: border-box;
@@ -103,7 +109,7 @@
         padding-top: 1px;
     }
 
-    .panel {
+    .panel-left {
         height: 568px;
         display: flex;
         flex-direction: column;
@@ -143,10 +149,9 @@
         cursor: text;
         white-space: pre-wrap;
         overflow-wrap: break-word;
-        margin: 0em;
+        margin: 0;
         border-width: 1px;
         border-image: initial;
-
     }
 
     .panel-button {
@@ -191,5 +196,18 @@
         width: 448px;
         margin-left: 16px;
         position: relative;
+    }
+
+    .panel-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+        height: calc(100% - 155px);
+        border: 1px solid #DCE3EB;
+    }
+
+    .echarts {
+        margin-top: 25%;
     }
 </style>

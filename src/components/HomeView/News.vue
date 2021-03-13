@@ -1,7 +1,7 @@
 <template>
-    <div class="news">
+    <div id="news">
         <div class="title">
-            <p class="content">精选资讯</p>
+            <h1 class="content">精选资讯</h1>
         </div>
         <div class="table">
             <div class="list" v-for="list in lists" :key="list.id">
@@ -107,19 +107,24 @@
 </script>
 
 <style scoped>
-    .news {
-
+    #news {
+        width: 60%;
     }
+
     .title {
+        margin-top: 5%;
         height: 20%;
         text-align: center;
     }
 
     .content {
         line-height: 20px;
+        margin-top: 5%;
+        color: rgba(50, 189, 254, 100);
     }
 
     .table {
+        margin-top: 5%;
         height: 587px;
         overflow-y: auto;
         overflow-x: hidden;
@@ -131,7 +136,6 @@
         border-left: 1px solid rgba(215, 215, 215, 100);
         width: 100%;
         display: flex;
-        float: left;
     }
 
     .picture {

@@ -1,7 +1,12 @@
 <template>
     <div id="app">
-        <TopToolBar class="top-tool-bar"/>
-        <Main/>
+        <div class = "TopToolBar">
+            <TopToolBar class="top-tool-bar"/>
+        </div>
+        <div class = "Main">
+            <Main/>
+        </div>
+
     </div>
 </template>
 
@@ -21,5 +26,8 @@
 <style>
     a {
         text-decoration: none;
+    }
+    .Main{
+        min-width: 1440px;
     }
 </style>

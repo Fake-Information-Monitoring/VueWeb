@@ -2,10 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Test from "@/components/Uploader/Test";
 import Login from "@/components/Login/Login";
-import BuyToken from "@/components/BuyToken/BuyToken";
+import BuyToken from "@/components/BuyToken/ApplicationToken";
 import HomeView from "@/components/HomeView/HomeView";
 import Indecency from "@/components/Uploader/Indecency";
-import Echarts from "@/components/Uploader/Echarts";
+import Register from "@/components/Login/Register";
+import IndividualApplication from "@/components/BuyToken/IndividualApplication";
+import Rumor from "@/components/Uploader/Rumor";
+import ApplicationManager from "@/components/Application/index"
 
 Vue.use(VueRouter)
 
@@ -20,26 +23,36 @@ const routes = [
         children: [
             {
                 path: '',
-                component: Indecency
+                component: Indecency,
+
             },
             {
-                path: 'indecency',
-                component: Indecency
-            },
-            {
-                path: 'recognition',
-                component: Echarts
+                path: 'rumor',
+                component: Rumor,
+
             }
         ]
     },
     {
         path: '/login',
-        component: Login
+        component: Login,
     },
     {
-        path: '/buytoken',
+        path: '/register',
+        component: Register
+    },
+    {
+        path: '/applicationToken',
         component: BuyToken
     },
+    {
+        path: '/IndividualApplication',
+        component: IndividualApplication
+    },
+    {
+        path: "/ApplicationManager",
+        component: ApplicationManager
+    }
 ]
 
 const router = new VueRouter({

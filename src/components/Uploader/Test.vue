@@ -30,10 +30,15 @@
                     {
                         id: '0',
                         name: '词法分析',
-                        route: '/test/indecency'
+                        route: '/test/'
                     },
                     {
                         id: '1',
+                        name: '谣言分析',
+                        route: '/test/rumor'
+                    },
+                    {
+                        id: '2',
                         name: '昊神分析',
                         route: '/test/recognition'
                     }

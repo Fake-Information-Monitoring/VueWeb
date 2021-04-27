@@ -28,32 +28,32 @@
                     {
                         id: 0,
                         route: '/',
-                        name: '招聘人员测试计划',
-                        src: require("../../assets/MainLogo.png")
+                        name: '工作高效',
+                        src: require("../../assets/工作高效.png")
                     },
                     {
                         id: 1,
-                        route: '/buytoken',
-                        name: '测评室测试计划',
-                        src: require('../../assets/MainLogo.png')
+                        route: '/',
+                        name: '海量数据',
+                        src: require('../../assets/海量数据.png')
                     },
                     {
                         id: 2,
-                        route: '/test',
-                        name: '学生健康测试计划',
-                        src: require('../../assets/MainLogo.png')
+                        route: '/',
+                        name: '后端稳定',
+                        src: require('../../assets/后端稳定.png')
                     },
                     {
                         id: 3,
-                        route: '/login',
-                        name: '公司员工测试计划',
-                        src: require('../../assets/MainLogo.png')
+                        route: '/',
+                        name: '判别准确',
+                        src: require('../../assets/判别准确.png')
                     },
                     {
                         id: 4,
-                        route: '/login',
-                        name: '公益协会测试计划',
-                        src: require('../../assets/MainLogo.png')
+                        route: '/',
+                        name: '算法领先',
+                        src: require('../../assets/算法领先.png')
 
                     },
                 ]

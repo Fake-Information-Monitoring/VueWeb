@@ -38,19 +38,16 @@
     import Echarts from "@/components/Uploader/Echarts";
 
     export default {
-        name: "Indecency",
+        name: "Rumor",
         components: {Echarts},
         data: () => ({
             text: "虚假信息云判官基于tfidf词频矩阵与支持向量机机器学习算法，是一个反垃圾社交信息及检测僵尸用户的开放平台，对诈骗信息、垃圾信息以及僵尸用户进行识别和分类。可实现对色情、暴力、诈骗、等危险信息的检测和对微博僵尸用户的数据分析，为打击网络违法犯罪行动和网络空间秩序整治等应用场景提供有力、高效的技术支持。",
             key: false,
-
         }),
-
 
         methods: {
 
             Submit: function () {
-                console.log(this.text)
                 this.key = true
                 this.$forceUpdate()
                 this.axios.post('/FakeNewsVerify/testVerify',
@@ -58,24 +55,18 @@
                         "text": this.text
                     },
                     {
-                        // headers: {
-                        //     token: localStorage.getItem("token")
-                        // },
                         params: {
-                            "type": "Sensitive"
+                            "type": "Rumor"
                         }
                     }
-                ).then(response => {
+                ).then(
+                    response => {
+                        console.log(response.data.data)
                         let data = response.data.data
                         let data1 = this.$store.state.Acc
-                        data1.advertising = data["广告信息"]
-                        data1.fear = data["暴恐信息"]
-                        data1.gun_fear = data["涉枪违法信息"]
-                        data1.human = data["民生信息"]
-                        data1.reactionary = data["反动信息"]
-                        data1.political = data["政治信息"]
-                        data1.sex = data['涉黄违法信息']
-                        this.$store.state.isApplication.Sensitive = true
+                        data1.rumor = data["谣言"]
+                        this.$store.state.isApplication.Rumor = true
+
                     }
                 )
             },
@@ -83,9 +74,7 @@
                 this.text = "";
             }
         },
-        created() {
-            console.log("afadfafasdfasfasd")
-            this.$forceUpdate()
+        activated() {
         },
         watch: {},
         beforeRouteEnter(to, from, next) {
@@ -252,9 +241,9 @@
     }
 
     .panel-right {
-        /*display: flex;*/
-        /*flex-direction: column;*/
-        /*justify-content: flex-start;*/
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
         position: relative;
         height: calc(100% - 155px);
         border: 1px solid #DCE3EB;
@@ -262,7 +251,5 @@
 
     .echarts {
         margin-top: 25%;
-
-        height: 100%;
     }
 </style>

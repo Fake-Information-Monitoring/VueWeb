@@ -6,12 +6,12 @@
             </div>
             <div class="table">
                 <div class="list" v-for="list in lists" :key="list.id">
-                        <div class="picture">
-                            <img :src=list.picture alt="vue logo">
-                        </div>
-                        <div class="link">
-                            <router-link :to=list.route class="route">{{list.name}}</router-link>
-                            <p class="introduction">{{list.introduction}}</p>
+                    <div class="picture">
+                        <img :src=list.picture alt="vue logo">
+                    </div>
+                    <div class="link">
+                        <router-link :to=list.route class="route">{{list.name}}</router-link>
+                        <p class="introduction">{{list.introduction}}</p>
                     </div>
 
                 </div>
@@ -25,41 +25,39 @@
 <script>
     export default {
         name: "Recommend",
-        data() {
-            return {
-                lists: [
-                    {
-                        id: 0,
-                        route: '/',
-                        name: '识别危险信息以及分类',
-                        introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                        picture: 'https://vuejs.bootcss.com/images/logo.png'
-                    },
-                    {
-                        id: 1,
-                        route: '/buytoken',
-                        name: '识别危险信息以及分类',
-                        introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                        picture: 'https://vuejs.bootcss.com/images/logo.png'
-                    },
-                    {
-                        id: 2,
-                        route: '/test',
-                        name: '识别危险信息以及分类',
-                        introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                        picture: 'https://vuejs.bootcss.com/images/logo.png'
-                    },
-                    {
-                        id: 3,
-                        route: '/login',
-                        name: '识别危险信息以及分类',
-                        introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                        picture: 'https://vuejs.bootcss.com/images/logo.png'
-                    },
-                ]
+        data: () => ({
+            lists: [
+                {
+                    id: 0,
+                    route: '/',
+                    name: '识别危险信息以及分类',
+                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
+                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                },
+                {
+                    id: 1,
+                    route: '/buytoken',
+                    name: '识别危险信息以及分类',
+                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
+                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                },
+                {
+                    id: 2,
+                    route: '/test',
+                    name: '识别危险信息以及分类',
+                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
+                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                },
+                {
+                    id: 3,
+                    route: '/login',
+                    name: '识别危险信息以及分类',
+                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
+                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                },
+            ]
 
-            }
-        },
+        }),
     }
 </script>
 <style scoped>

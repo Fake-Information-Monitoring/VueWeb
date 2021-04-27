@@ -2,7 +2,7 @@
     <div class="introduction">
         <h1>
             <br/>
-            虚假信息云判官
+            有道科技
         </h1>
         <div class="text">
             <div class="left">
@@ -16,7 +16,7 @@
                     提供的账号信息和发言信息，返回其为僵尸用户的可能性。<br/><br/></p>
             </div>
             <div class="right">
-                <img src="../../assets/2.png" alt="">
+                <img src="../../assets/MainLogo1.png" alt="">
             </div>
         </div>
 
@@ -32,7 +32,7 @@
 <style scoped>
 
     .introduction {
-        background-color: lightskyblue;
+        background-color: #87cefa;
         width: 80%;
 
     }
@@ -58,10 +58,9 @@
     }
 
     img {
-        margin-top: 15%;
         vertical-align: middle;
-        width: 150px;
-        height: 150px;
+        width: 40%;
+        height: 40%;
     }
 
     .left {
@@ -76,5 +75,6 @@
         display: flex;
         width: 40%;
     }
+
 
 </style>

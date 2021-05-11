@@ -67,7 +67,7 @@
                         </v-list-group>
                     </v-list>
                 </template>
-                <v-dialog v-model="SecondDialog" max-width="540" class="justify-center">
+                <v-dialog v-model="SecondDialog" max-width="800" class="justify-center">
                     <template v-slot:activator="{on,attrs}">
                         <v-card class="overflow-hidden justify-center" v-show="!SecondDialog">
                             <v-card-title>
@@ -75,24 +75,24 @@
                             </v-card-title>
                             <v-row class="pl-4 pr-4 mt-4 mb-4">
                                 <v-col v-for="item in items" :key="item.title" outlined tile v-on="on" v-bind="attrs">
-                                    <v-card @click="ApplicationTypes(item)">
+                                    <v-card @click="ApplicationTypes(item)" color="primary" >
                                         <v-card-title class="justify-center">
-                                            {{item.title}}
+                                            <span class="white--text">{{item.title}}</span>
                                         </v-card-title>
-                                        <v-divider></v-divider>
-                                        <v-card-text>
-                                            <ul style="color: #0092ee">
-                                                <li v-for="(feature,n) in item.features" :key="n">
-                                                    <span style="color: black">{{ feature }}</span>
-                                                </li>
-                                            </ul>
-                                        </v-card-text>
+<!--                                        <v-divider></v-divider>-->
+<!--                                        <v-card-text>-->
+<!--                                            <ul style="color: #0092ee">-->
+<!--                                                <li v-for="(feature,n) in item.features" :key="n">-->
+<!--                                                    <span style="color: black">{{ feature }}</span>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </v-card-text>-->
                                     </v-card>
                                 </v-col>
                             </v-row>
                         </v-card>
                     </template>
-                    <v-dialog v-model="ThirdDialog" max-width="1200">
+                    <v-dialog v-model="ThirdDialog" max-width="540">
                         <template v-slot:activator="{on, attrs}">
                             <v-card v-show="!ThirdDialog">
                                 <v-card-title>
@@ -105,54 +105,24 @@
                                                   outlined></v-text-field>
                                 </v-card-text>
                                 <v-card-actions class="mt-auto justify-end d-flex">
-                                    <v-btn v-on="on" v-bind="attrs">下一步</v-btn>
+                                    <v-btn class="white--text" color="primary" v-on="on" v-bind="attrs">下一步</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </template>
-                        <v-dialog v-model="FourthDialog" max-width="540">
-                            <template v-slot:activator="{on,attrs}">
-                                <v-card class="overflow-hidden" v-show="!FourthDialog">
-                                    <v-card-title>
-                                        选择key类型
-                                    </v-card-title>
-                                    <v-card-text>
-                                        数据KEY是用于验证和授权的密钥，现在开始设置第一个KEY
-                                        不同KEY的类型不可混用，你可以稍后创建更多类型的KEY
-                                    </v-card-text>
-                                    <v-row class="pl-4 pr-4 mt-4 mb-4">
-                                        <v-col v-for="item in keyItems" :key="item.title" outlined tile v-on="on"
-                                               v-bind="attrs">
-                                            <v-card min-height="170">
-                                                <v-card-title class="justify-center">
-                                                    <v-icon>{{item.icon}}</v-icon>
-                                                    {{item.title}}
-                                                </v-card-title>
-                                                <v-divider></v-divider>
-                                                <v-card-text class="d-flex justify-center">
-                                                    <div class="d-flex text-center" v-html="item.description">
-                                                        {{item.description}}
-                                                    </div>
-                                                </v-card-text>
-                                            </v-card>
-                                        </v-col>
-                                    </v-row>
-                                </v-card>
-                            </template>
-                            <v-card>
-                                <v-card-title>
-                                    填写识别数据应用名称
-                                </v-card-title>
-                                <v-card-text class="pb-1">
-                                    key的名称
-                                    <v-text-field class="ml-1 mr-1" counter="15" v-model="KeyName"
-                                                  placeholder="最多输入15个字符，可以使用中文、英文、数字、下划线" clearable
-                                                  outlined></v-text-field>
-                                </v-card-text>
-                                <v-card-actions class="mt-auto justify-end d-flex">
-                                    <v-btn v-on:click="Application" color="primary">创建</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
+                        <v-card>
+                            <v-card-title>
+                                填写识别数据应用名称
+                            </v-card-title>
+                            <v-card-text class="pb-1">
+                                key的名称
+                                <v-text-field class="ml-1 mr-1" counter="15" v-model="KeyName"
+                                              placeholder="最多输入15个字符，可以使用中文、英文、数字、下划线" clearable
+                                              outlined></v-text-field>
+                            </v-card-text>
+                            <v-card-actions class="mt-auto justify-end d-flex">
+                                <v-btn v-on:click="Application" color="primary">创建</v-btn>
+                            </v-card-actions>
+                        </v-card>
                     </v-dialog>
                 </v-dialog>
             </v-dialog>

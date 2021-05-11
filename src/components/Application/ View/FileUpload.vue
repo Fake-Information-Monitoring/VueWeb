@@ -42,14 +42,14 @@
                         <v-row class="pl-4 pr-4 mt-4 mb-4">
                             <v-col v-for="item in keyItems" :key="item.title" outlined tile v-on="on"
                                    v-bind="attrs">
-                                <v-card min-height="170" v-on:click="Types(item)">
+                                <v-card v-on:click="Types(item)" color="primary" class="white--text">
                                     <v-card-title class="justify-center">
                                         {{item.title}}
                                     </v-card-title>
-                                    <v-divider></v-divider>
-                                    <v-card-text class="d-flex justify-center">
-                                        <div class="d-flex text-center" v-html="item.features"></div>
-                                    </v-card-text>
+<!--                                    <v-divider></v-divider>-->
+<!--                                    <v-card-text class="d-flex justify-center">-->
+<!--                                        <div class="d-flex text-center" v-html="item.features"></div>-->
+<!--                                    </v-card-text>-->
                                 </v-card>
                             </v-col>
                         </v-row>

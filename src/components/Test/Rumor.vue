@@ -27,6 +27,7 @@
                 <div class="panel-right">
                     <div class="echarts" v-show="key">
                         <Echarts/>
+                        <echart/>
                     </div>
                 </div>
             </div>
@@ -35,13 +36,13 @@
 </template>
 
 <script>
-    import Echarts from "@/components/Uploader/Echarts";
+    import Echarts from "@/components/Test/Echarts";
 
     export default {
         name: "Rumor",
         components: {Echarts},
         data: () => ({
-            text: "虚假信息云判官基于tfidf词频矩阵与支持向量机机器学习算法，是一个反垃圾社交信息及检测僵尸用户的开放平台，对诈骗信息、垃圾信息以及僵尸用户进行识别和分类。可实现对色情、暴力、诈骗、等危险信息的检测和对微博僵尸用户的数据分析，为打击网络违法犯罪行动和网络空间秩序整治等应用场景提供有力、高效的技术支持。",
+            text: "我们使用SVM支持向量机算法对谣言进行识别判断。识别算法主要分为以下步骤：训练集文本分词、去除停用词、使用Word2Vec模型对训练集文本进行特征提取、使用预处理后的数据作为训练集对SVM模型进行训练。 ",
             key: false,
         }),
 
@@ -77,17 +78,6 @@
         activated() {
         },
         watch: {},
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-                vm.key = false
-            })
-        },
-        beforeRouteLeave(to, from, next) {
-            this.key = false
-            this.$store.state.isSkip = true
-            console.log(this.key)
-            next()
-        }
     }
 </script>
 

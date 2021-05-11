@@ -1,33 +1,25 @@
 <template>
-    <div id="app">
-        <div class = "TopToolBar">
-            <TopToolBar class="top-tool-bar"/>
-        </div>
-        <div class = "Main">
-            <Main/>
-        </div>
+  <v-app>
+    <TopToolBar/>
+    <v-main>
+      <v-fab-transition>
+        <router-view/>
+      </v-fab-transition>
+    </v-main>
 
-    </div>
+  </v-app>
+
 </template>
 
 <script>
-    import TopToolBar from "@/components/TopToolBar";
-    import Main from "@/components/Main";
 
-    export default {
-        name: "App",
-        components: {
-            Main,
-            TopToolBar
-        }
-    }
+import TopToolBar from "@/components/TopToolBar";
+export default {
+  name: 'App',
+  components: {TopToolBar},
+  data: () => ({
+    //
+  }),
+};
 </script>
 
-<style>
-    a {
-        text-decoration: none;
-    }
-    .Main{
-        min-width: 1440px;
-    }
-</style>

@@ -1,6 +1,6 @@
 <template>
 
-    <div id="advantage">
+    <v-container id="advantage">
         <div>
             <div class="title">
                 <h1 class="content">产品优势</h1>
@@ -11,12 +11,12 @@
                         <img :src="list.src" alt="">
                     </div>
                     <div class="link">
-                        <router-link :to=list.route class="route">{{list.name}}</router-link>
+                        <div style="color: #0092ee" class="route">{{list.name}}</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -29,31 +29,31 @@
                         id: 0,
                         route: '/',
                         name: '工作高效',
-                        src: require("../../assets/工作高效.png")
+                        src: require("../../assets/efficiently.png")
                     },
                     {
                         id: 1,
                         route: '/',
                         name: '海量数据',
-                        src: require('../../assets/海量数据.png')
+                        src: require('../../assets/data.png')
                     },
                     {
                         id: 2,
                         route: '/',
                         name: '后端稳定',
-                        src: require('../../assets/后端稳定.png')
+                        src: require('../../assets/stable.png')
                     },
                     {
                         id: 3,
                         route: '/',
                         name: '判别准确',
-                        src: require('../../assets/判别准确.png')
+                        src: require('../../assets/discrimination.png')
                     },
                     {
                         id: 4,
                         route: '/',
                         name: '算法领先',
-                        src: require('../../assets/算法领先.png')
+                        src: require('../../assets/leading.png')
 
                     },
                 ]

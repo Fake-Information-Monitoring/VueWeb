@@ -24,31 +24,92 @@
                 </div>
             </div>
             <div class="inner-right">
-                <div class="panel-right">
-                    <div class="echarts" v-show="key">
-                        <Echarts/>
-                    </div>
-                </div>
+                <v-card  min-height="570">
+                    <v-card-title>识别结果</v-card-title>
+                    <v-divider></v-divider>
+                        <v-list-item v-for="(item ,key,index) in results.data" :key="index">
+
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <span class="text-h6">{{ key }}</span>
+                                </v-list-item-title>
+                                <v-chip-group>
+                                    <v-chip color="primary" v-for="(data,i) in item" :key="i">
+                                        <span>{{data}}</span>
+                                    </v-chip>
+                                </v-chip-group>
+                            </v-list-item-content>
+                        </v-list-item>
+
+                </v-card>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Echarts from "@/components/Uploader/Echarts";
 
     export default {
         name: "Indecency",
-        components: {Echarts},
+        components: {},
         data: () => ({
-            text: "虚假信息云判官基于tfidf词频矩阵与支持向量机机器学习算法，是一个反垃圾社交信息及检测僵尸用户的开放平台，对诈骗信息、垃圾信息以及僵尸用户进行识别和分类。可实现对色情、暴力、诈骗、等危险信息的检测和对微博僵尸用户的数据分析，为打击网络违法犯罪行动和网络空间秩序整治等应用场景提供有力、高效的技术支持。",
+            selection: [],
+            sex: false,
+            fear: false,
+            human: false,
+            gun_fear: false,
+            political: false,
+            reactionary: false,
+            advertising: false,
+            text: "经过我们测试，使用DFA算法，可在十万级别的文本数据量下保持100ms左右的检测速度，完全满足本项目对高并发的需求。将用户输入的关键词数据构建出一颗词树，在多个关键词时就会生成一个森林，对应多种不同的关键词。而在匹配时我们只需要在这颗树（或森林）中不断向下检索即可。",
             key: false,
+            // chips: [
+            //     '政治反动信息',
+            //     '政治敏感信息',
+            //     '淫秽色情信息',
+            //     '民生纠纷信息',
+            //     '枪械暴乱信息',
+            //     '广告信息',
+            //     '暴恐信息',
+            // ],
+            results: {
+                // 'advertising': [],
+                // 'sex': [],
+                // 'fear': [],
+                // 'human': [],
+                // 'gun_fear': [],
+                // 'political': [],
+                // 'reactionary': [],
+                data: []
+            }
+
 
         }),
 
-
         methods: {
-
+            de() {
+                console.log(this.results)
+            },
+            types(item) {
+                switch (item) {
+                    case '政治反动信息' :
+                        return {name: 'reactionary', type: this.reactionary};
+                    case '政治敏感信息' :
+                        return {name: 'political', type: this.political};
+                    case '淫秽色情信息' :
+                        return {name: 'sex', type: this.sex};
+                    case '民生纠纷信息' :
+                        return {name: 'human', type: this.human};
+                    case '枪械暴乱信息' :
+                        return {name: 'gun_fear', type: this.gun_fear};
+                    case '广告信息' :
+                        return {name: 'advertising', type: this.advertising};
+                    case '暴恐信息' :
+                        return {name: 'fear', type: this.fear};
+                    default:
+                        return null
+                }
+            },
             Submit: function () {
                 console.log(this.text)
                 this.key = true
@@ -58,47 +119,51 @@
                         "text": this.text
                     },
                     {
-                        // headers: {
-                        //     token: localStorage.getItem("token")
-                        // },
                         params: {
                             "type": "Sensitive"
                         }
                     }
-                ).then(response => {
-                        let data = response.data.data
-                        let data1 = this.$store.state.Acc
-                        data1.advertising = data["广告信息"]
-                        data1.fear = data["暴恐信息"]
-                        data1.gun_fear = data["涉枪违法信息"]
-                        data1.human = data["民生信息"]
-                        data1.reactionary = data["反动信息"]
-                        data1.political = data["政治信息"]
-                        data1.sex = data['涉黄违法信息']
-                        this.$store.state.isApplication.Sensitive = true
+                ).then((response) => {
+                        this.results = {'data': []}
+                        let data = response.data.data.result
+                        this.text = response.data.data.text
+                        this.results.data = data
+                    console.log(this.results.data)
+                        //     let keys = Object.keys(data)
+                        //
+                        //     console.log(keys)
+                        //     keys.forEach((item) => {
+                        //         let key = this.types(item).name
+                        //         // this.results.data.push({'name': key, 'data': data[item]})
+                        //         this.results[key] = data[key]
+                        //     })
+                        //     console.log(this.results)
+                        //     this.$forceUpdate()
                     }
                 )
             },
             ClearText: function () {
                 this.text = "";
+            },
+            heightLight: function (item) {
+                item.type = !item.type
             }
         },
-        created() {
-            console.log("afadfafasdfasfasd")
-            this.$forceUpdate()
+        computed: {
+            chips() {
+                return [
+                    {name: '政治反动信息', type: this.reactionary},
+                    {name: '政治敏感信息', type: this.political},
+                    {name: '淫秽色情信息', type: this.sex},
+                    {name: '民生纠纷信息', type: this.human},
+                    {name: '枪械暴乱信息', type: this.gun_fear},
+                    {name: '广告信息', type: this.advertising},
+                    {name: '暴恐信息', type: this.fear},
+                ]
+            },
+
         },
-        watch: {},
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-                vm.key = false
-            })
-        },
-        beforeRouteLeave(to, from, next) {
-            this.key = false
-            this.$store.state.isSkip = true
-            console.log(this.key)
-            next()
-        }
+        filters: {}
     }
 </script>
 

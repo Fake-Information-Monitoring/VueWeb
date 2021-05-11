@@ -5,6 +5,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
 import VueCookie from  'vue-cookie'
+import vuetify from './plugins/vuetify'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
@@ -28,7 +29,8 @@ const store = new Vuex.Store({
             "avatar" : "",
             "email" : "",
             "commitList" :"",
-            "keyList" : ""
+            "keyList" : "",
+            "hasApplication": null,
         },
         Acc :{
             advertising : 0,
@@ -63,5 +65,6 @@ axios.defaults.withCredentials = true;
 new Vue({
     router,
     store,
+    vuetify,
     render: h => h(App)
 }).$mount('#app')

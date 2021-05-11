@@ -7,10 +7,10 @@
             <div class="table">
                 <div class="list" v-for="list in lists" :key="list.id">
                     <div class="picture">
-                        <img :src=list.picture alt="vue logo">
+                        <img :src="list.picture" alt="vue logo">
                     </div>
                     <div class="link">
-                        <router-link :to=list.route class="route">{{list.name}}</router-link>
+                        <div class="route"><span style="color: #0092ee">{{list.name}}</span></div>
                         <p class="introduction">{{list.introduction}}</p>
                     </div>
 
@@ -29,31 +29,27 @@
             lists: [
                 {
                     id: 0,
-                    route: '/',
                     name: '识别危险信息以及分类',
-                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                    introduction: '使用SVM支持向量机算法对谣言进行识别判断，模型性能良好。',
+                    picture: require('..\\..\\assets\\distinguish.png')
                 },
                 {
                     id: 1,
-                    route: '/buytoken',
-                    name: '识别危险信息以及分类',
-                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                    name: '微博僵尸用户的数据分析',
+                    introduction: '采集他们的近期发言，动态，活动时间分布等数据，精确判别。',
+                    picture: require('..\\..\\assets\\analysis.png')
                 },
                 {
                     id: 2,
-                    route: '/test',
-                    name: '识别危险信息以及分类',
-                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                    name: '打击网络违法犯罪行动',
+                    introduction: '对色情、暴力、诈骗等危险信息进行判别。',
+                    picture: require('..\\..\\assets\\cracking.png')
                 },
                 {
                     id: 3,
-                    route: '/login',
-                    name: '识别危险信息以及分类',
-                    introduction: '第一个模块是对色情、诈骗语句的识别以及分类，主要是对色情、暴力、诈骗等危险信息。',
-                    picture: 'https://vuejs.bootcss.com/images/logo.png'
+                    name: '网络空间秩序整治',
+                    introduction: '让网络清朗起来，保护广大青少年免受侵害。',
+                    picture: require('..\\..\\assets\\renovation.png')
                 },
             ]
 

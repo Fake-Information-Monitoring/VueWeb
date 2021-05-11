@@ -1,16 +1,13 @@
 <template>
-    <div>
-
-    </div>
+    
 </template>
 
 <script>
     export default {
-        name: "EnterpriseApplication"
+        name: "DevelopDocumentation"
     }
 </script>
 
 <style scoped>
-
 
 </style>

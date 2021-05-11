@@ -1,51 +1,62 @@
 <template>
-    <div class="header">
-        <div class="left">
-            <div class="logo">
-                <a href="/" class="web-title">
-                    <img src="../assets/MainLogo.png">
-                    <span>虚假信息云判官</span>
-                </a>
-            </div>
-        </div>
+    <v-app-bar
+            app elevation="1" clipped-left elevate-on-scroll height="60">
+        <a href="/" class="d-flex align-center" style="text-decoration:none">
+            <v-img src="../assets/MainLogo.png"
+                   alt="虚假信息云判官"
+                   contain
+                   width="50"
+                   transition="scale-transition"
+                   class="shrink mr-2"/>
+            <span class="hidden-sm-and-down text-h5">虚假信息云判官</span>
+        </a>
+        <v-spacer/>
+        <div>
+            <v-tabs
+                    optional
+                    background-color="transparent">
+                <v-tab to='/' class="font-weight-bold" exact :ripple="false" min-width="96" text>
+                    首页
+                </v-tab>
+                <!--                <v-tab to='/applicationToken' :ripple="false" class="font-weight-bold"-->
+                <!--                       min-width="96" text>接口使用申请-->
+                <!--                </v-tab>-->
+                <v-tab to='/test' class="font-weight-bold" :ripple="false"
+                       min-width="96" text>效果体验
+                </v-tab>
+                <v-tab v-if="!isLogin" to='/login' class="font-weight-bold"
+                       :ripple="false" min-width="96" text>登录/注册
+                </v-tab>
 
-        <div class="right">
-            <div class="toolList">
-                <div class="layout">
-                    <div class="navigation">
-                        <ul id="nav">
-                            <li class="router-link-active">
-                                <router-link to='/' class="route">首页</router-link>
-                            </li>
-                            <li class="router-link-active">
-                                <router-link to='/applicationToken' class="route">接口使用申请</router-link>
-                            </li>
-                            <li class="router-link-active">
-                                <router-link to='/test' class="route">效果体验</router-link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="log">
-                        <div v-if="!isLogin" class="login">
-                            <router-link to='/login' class="route router-link-active">登录/注册</router-link>
-                        </div>
-                        <div v-else class="avatarLi tooltip">
-                            <img class="avatar" src="../assets/noface.jpg" style="" alt=""/>
-                            <div class="tooltipText">
-                                <div>
-                                    <router-link to="/ApplicationManager" style="color: black">应用管理</router-link>
-                                </div>
-                                <div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px;border-left: 190px solid #ddd;border-right: 190px solid #ddd;text-align: center;  "></div>
-                                <div>
-                                    <div v-on:click="">退出登录</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <v-menu v-else bottom
+                        min-width="150"
+                        offset-x
+                        offset-y
+                        origin="center center"
+                        transition="scale-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon large>
+                            <v-avatar size="48px" item v-on="on" v-bind="attrs">
+                                <v-img class="avatar" src="../assets/noface.jpg" style="" alt=""/>
+                            </v-avatar>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item to="/ApplicationManager">
+                            <v-list-item-title>控制台</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="Logout">
+                            <v-list-item-title>退出登录</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+
+
+            </v-tabs>
+
         </div>
-    </div>
+    </v-app-bar>
+
 </template>
 
 <script>
@@ -62,15 +73,20 @@
                 "email": "",
                 "commitList": "",
                 "keyList": ""
-            }
+            },
+            items: [
+                {title: 'Click Me'},
+                {title: 'Click Me'},
+                {title: 'Click Me'},
+                {title: 'Click Me 2'},
+            ],
         }),
         methods: {
             LoginOrLogout: function () {
-                this.axios.get('getInfo/').then(
+                this.axios.get('/getInfo/').then(
                     response => {
                         let data = response.data["data"]
                         if (localStorage.getItem("id") !== response.data.id) {
-
                             localStorage.setItem("name", data.name)
                             localStorage.setItem("avatar", data.avatar)
                             localStorage.setItem("id", data.id)
@@ -78,9 +94,9 @@
                             localStorage.setItem("keyList", data.keyList)
                             localStorage.setItem("commitList", data.commitList)
                             localStorage.setItem("phoneNumber", data.phoneNumber)
+                            localStorage.setItem("hasApplication", data["personCertified"])
+                            console.log(localStorage.getItem("hasApplication"))
                         }
-                        console.log(this.$store.state.isLogin)
-                        console.log(this.isLogin)
                         this.$store.state.isLogin = true
                         let UserInformation = this.$store.state.UserInformation
                         UserInformation.id = localStorage.getItem("id")
@@ -90,6 +106,13 @@
                         UserInformation.phoneNumber = localStorage.getItem("phoneNumber")
                         UserInformation.keyList = localStorage.getItem("keyList")
                         UserInformation.commitList = localStorage.getItem("commitList")
+                        if (localStorage.getItem("hasApplication") === null) {
+                            console.log("cssfdsfsdcsdc")
+                            UserInformation.hasApplication = false
+                        } else {
+                            console.log("jhgsfdhdfghdfg")
+                            UserInformation.hasApplication = true
+                        }
                     }
                 ).catch(error => {
                     switch (error.response.data.statusCode) {
@@ -99,40 +122,25 @@
                     }
                 })
             },
-
+            Logout: function () {
+                this.axios.get('/login/logout').then(
+                    () => {
+                        this.$store.state.isLogin = false
+                    }
+                )
+            }
         },
         computed: {
             IsLoginMonitor() {
 
                 return this.$store.state.isLogin
             },
-            getUserInformation() {
-                return this.$store.state.UserInformation.name
-                    || this.$store.state.UserInformation.id
-                    || this.$store.state.UserInformation.phoneNumber
-                    || this.$store.state.UserInformation.avatar
-                    || this.$store.state.UserInformation.email
-                    || this.$store.state.UserInformation.commitList
-                    || this.$store.state.UserInformation.keyList
-            }
         },
         watch: {
             IsLoginMonitor() {
                 this.isLogin = this.$store.state.isLogin
                 this.$forceUpdate()
             },
-            getUserInformation() {
-                let __this = this.UserInformation
-
-                __this.avatar = this.$store.state.UserInformation.avatar
-                __this.commitList = this.$store.state.UserInformation.commitList
-                __this.email = this.$store.state.UserInformation.email
-                __this.id = this.$store.state.UserInformation.id
-                __this.keyList = this.$store.state.UserInformation.keyList
-                __this.name = this.$store.state.UserInformation.name
-                __this.phoneNumber = this.$store.state.UserInformation.phoneNumber
-                this.$forceUpdate()
-            }
         },
         created() {
             this.LoginOrLogout()
@@ -143,141 +151,4 @@
 </script>
 
 <style scoped>
-    .header {
-        min-width: 1440px;
-        height: 40px;
-        padding: 10px 60px;
-        background-color: rgba(255, 255, 255, 95);
-        border-bottom: 1px solid rgb(165, 88, 88);
-        top: 0;
-        width: 100%;
-        position: fixed;
-        z-index: 1;
-    }
-
-    #nav li {
-        margin: 0 0.6em;
-        display: inline;
-        font-size: 20px;
-    }
-
-    #nav {
-        display: block;
-        list-style-type: disc;
-        margin-block-start: 0em;
-        margin-block-end: 0em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-    }
-
-    a:-webkit-any-link {
-        color: -webkit-link;
-        cursor: pointer;
-        text-decoration: none;
-        color: #0092ee;
-    }
-
-    .router-link-active {
-        text-decoration: none;
-        color: yellow;
-    }
-
-    li {
-        text-align: -webkit-match-parent;
-    }
-
-    .left {
-        width: 20%;
-        display: inline-block;
-    }
-
-    .logo {
-        font-size: 1.5em;
-        line-height: 40px;
-        color: #273849;
-        font-weight: 500;
-    }
-
-    .logo img {
-        vertical-align: middle;
-        margin-right: 6px;
-        width: 40px;
-        height: 40px;
-    }
-
-    .right {
-        display: inline-block;
-        width: 75%;
-        height: 40px;
-    }
-
-    .toolList {
-        display: flex;
-        height: 100%;
-    }
-
-    .layout {
-        justify-content: flex-end;
-        margin-left: auto;
-        position: relative;
-
-    }
-
-    .navigation {
-        display: inline-block;
-        margin-right: 100px;
-    }
-
-    .log {
-        right: 20px;
-        position: absolute;
-        display: inline-block;
-    }
-
-    .login {
-        font-size: 20px;
-        position: relative;
-        left: 20px;
-    }
-
-    .avatarLi {
-        /*right: 20px;*/
-        top: -7.5px;
-        right: 10px;
-        position: relative;
-    }
-
-    .avatar {
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-    }
-
-    .tooltip {
-        position: relative;
-        display: inline-block;
-    }
-
-    .tooltip .tooltipText {
-        visibility: hidden;
-        width: 120px;
-        background-color: #ffffff;
-
-        text-align: center;
-        border: 1px solid #0381aa;;
-        border-radius: 6px;
-        padding: 5px 0;
-
-        /* 定位 */
-        position: absolute;
-        z-index: 1;
-        top: 100%;
-        left: 50%;
-        margin-left: -60px;
-    }
-
-    .tooltip:hover .tooltipText {
-        visibility: visible;
-    }
-
 </style>

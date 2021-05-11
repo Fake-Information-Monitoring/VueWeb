@@ -1,30 +1,37 @@
 <template>
     <div class="application">
-        <div class="aside">
-            <Left/>
-        </div>
+        <Left/>
         <div>
-            <router-view/>
+            <router-view class="mt-12 ml-4"/>
         </div>
     </div>
 </template>
-
 <script>
     import Left from "@/components/Application/Left";
+
     export default {
         name: "Manager",
-        components: {Left}
+        components: {Left},
+        // beforeRouteEnter(to, from, next) {
+        //     next(vm => {
+        //         if (vm.$store.state.isLogin === false) {
+        //             alert("请登录")
+        //             vm.$router.replace({path:'/login'})
+        //         }
+        //     })
+        // }
     }
 </script>
 
 <style scoped>
-    .application{
+    .application {
 
         height: 880px;
         min-height: 880px;
         z-index: 3;
     }
-    .aside{
+
+    .aside {
         background-color: #0092ee;
         position: relative;
         left: 0;

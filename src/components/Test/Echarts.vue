@@ -36,7 +36,6 @@
             TypeData: []
         }),
         created() {
-            console.log("afadfafasdfasfasd")
             this.$forceUpdate()
 
         },
@@ -78,7 +77,6 @@
                     legend: {
                         orient: 'vertical',
                         bottom: 'bottom',
-                        // data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
                     },
                     series: [
                         {
@@ -91,54 +89,13 @@
             },
         },
         computed: {
-            Monitor() {
-                return this.$store.state.isApplication.Sensitive
-                // let data = this.$store.state.Acc
-                // return data.advertising ||
-                //     data.fear ||
-                //     data.gun_fear ||
-                //     data.human ||
-                //     data.reactionary ||
-                //     data.political ||
-                //     data.sex
-            },
             RumorMonitor() {
-                // let data = this.$store.state.Acc
-                // return data.rumor
                 return this.$store.state.isApplication.Rumor
             }
 
         },
         watch: {
-            Monitor() {
-                // console.log(this.$store.state.isSkip)
-                // if(this.$store.state.isSkip === true){
-                //     this.myChart = echarts.init(document.getElementById('echart'))
-                //     this.$store.state.isSkip = false
-                // }
-                if (this.$store.state.isApplication.Sensitive === true) {
-                    console.log("qweqwadzxzxc")
-                    let data = this.$store.state.Acc
-                    this.advertising = (data.advertising * 100)
-                    this.gun_fear = (data.gun_fear * 100)
-                    this.fear = (data.fear * 100)
-                    this.human = (data.human * 100)
-                    this.reactionary = (data.reactionary * 100)
-                    this.political = (data.political * 100)
-                    this.sex = (data.sex * 100)
-                    this.TypeData = ['反动信息', '广告信息', '暴恐信息', '涉枪违法信息', '民生信息', '涉黄违法信息', '政治敏感信息']
-                    this.RateData = [this.reactionary, this.advertising, this.fear, this.gun_fear, this.human, this.sex, this.political]
-                    this.initData()
-                    this.$forceUpdate()
-                    this.$store.state.isApplication.Sensitive = false
-                }
-
-            },
             RumorMonitor() {
-                // if(this.$store.state.isSkip === true){
-                //     this.myChart = echarts.init(document.getElementById('echart'))
-                //     this.$store.state.isSkip = false
-                // }
                 if (this.$store.state.isApplication.Rumor === true) {
                     let data = this.$store.state.Acc
                     this.rumor = data.rumor
@@ -148,7 +105,6 @@
                     this.$forceUpdate()
                     this.$store.state.isApplication.Rumor = false
                 }
-
             }
         },
     }

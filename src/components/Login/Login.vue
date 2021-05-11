@@ -1,38 +1,57 @@
 <template>
-    <div class="login-page" >
-        <img class="backgroundImage" src="../../assets/1.jpg" alt="">
-        <div class="login-box">
-            <div class="main-view">
-                <div class="title">
-                    <h1>登录</h1>
-                </div>
-                <div class="inner">
-                    <div class="box">
+    <v-container>
+        <v-alert :value="alert" outlined type="error" prominent border="left" dismissible
+                 transition="scroll-y-transition" style="position: absolute; top: 0; right:0; left: 0; z-index: 1">
+            {{errorMsg}}
+        </v-alert>
+        <v-row class="mt-16">
+            <v-col>
+                <v-row justify="center">
+                    <v-card class="pa-12" elevation="0" min-width="600">
 
-                        <label>
-                            <input v-model="email" class="account" placeholder="请输入您的邮箱">
-                        </label>
-                    </div>
-                    <div class="box">
-                        <label>
-                            <input v-model="password" class="password" placeholder="请输入您的密码">
-                        </label>
-                    </div>
-                    <div class="box">
-                        <label>
-                            <input v-model="verificationCode" id="innerVerificationCode" placeholder="请输入验证码">
-                        </label>
-                        <input v-on:click="GetVerificationCode" :disabled="isDisable" type="image" :src="url"
-                               id="getVerificationCode" alt="">
-                    </div>
-                    <div class="box">
-                        <button v-on:click="Login" id="login" value="登录">登录</button>
-                        <router-link id="register" to='/register' value="注册">注册</router-link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <v-card-title class="justify-center text-h2">登录</v-card-title>
+                        <v-text-field v-model="email" clearable outlined placeholder="请输入您的邮箱" class="mt-12"/>
+                        <v-text-field v-model="password"
+                                      name="password"
+                                      clearable
+                                      outlined
+                                      placeholder="请输入您的密码"
+                                      :type="show ?'text': 'password'"
+                                      :append-icon="show ?'mdi-eye-off':'mdi-eye'"
+                                      @click:append="show=!show"
+                                      class="mt-12"/>
+                        <v-row class="mt-8">
+                            <v-col>
+                                <v-text-field v-model="verificationCode" clearable outlined placeholder="请输入验证码"/>
+                            </v-col>
+                            <v-col>
+                                <v-row justify="center">
+                                    <v-img v-on:click="getVerificationCode" :disabled="isDisable" max-width="150"
+                                           max-height="60" aspect-ratio="2.5" :src="url" alt=""/>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                        <v-container class="mt-8">
+                            <v-row>
+                                <v-col>
+                                    <v-row justify="start">
+                                        <v-btn v-on:click="Login" color="primary" min-width="200" value="登录">登录</v-btn>
+                                    </v-row>
+                                </v-col>
+                                <v-col>
+                                    <v-row justify="end">
+                                        <v-btn to='/register' color="primary" min-width="200" value="注册">注册</v-btn>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card>
+                </v-row>
+
+            </v-col>
+        </v-row>
+
+    </v-container>
 </template>
 
 <script>
@@ -41,6 +60,9 @@
     export default {
         name: "Login",
         data: () => ({
+            alert: false,
+            errorMsg: '',
+            show: false,
             img: {
                 backgroundImage: "url(" + require("../../assets/1.jpg") + ")"
             },
@@ -49,21 +71,20 @@
             password: "wstzj123",
             verificationCode: "",
             isDisable: false,
-            isLogin: false
+            isLogin: false,
+            isErrorRequest: false
         }),
         methods: {
 
             Login: function () {
+                this.alert = false
                 this.axios.post("/login/loginWithEmail",
                     {
                         "account": this.email,
                         "password": this.password,
                         "verifyCode": this.verificationCode
-                    }).then(response => {
-                        let data = response.data["data"][0]
-                        this.$store.state.isLogin = true
-                        localStorage.setItem("isLogin", this.$store.state.isLogin === true ? 1 : "")
-                        localStorage.setItem('session', data["value"])
+                    }).then(() => {
+
                         this.axios.get("/getInfo/").then(response => { //获取用户信息
 
                             let UserInformation = this.$store.state.UserInformation
@@ -77,27 +98,31 @@
                             UserInformation.keyList = data.keyList
                             UserInformation.commitList = data.commitList
 
-                            localStorage.setItem("name",data.name)
-                            localStorage.setItem("avatar",data.avatar)
-                            localStorage.setItem("id",data.id)
-                            localStorage.setItem("email",data.email)
-                            localStorage.setItem("keyList",data.keyList)
-                            localStorage.setItem("commitList",data.commitList)
-                            localStorage.setItem("phoneNumber",data.phoneNumber)
+                            localStorage.setItem("name", data.name)
+                            localStorage.setItem("avatar", data.avatar)
+                            localStorage.setItem("id", data.id)
+                            localStorage.setItem("email", data.email)
+                            localStorage.setItem("keyList", data.keyList)
+                            localStorage.setItem("commitList", data.commitList)
+                            localStorage.setItem("phoneNumber", data.phoneNumber)
 
+                            this.$store.state.isLogin = true
                         })
                         this.$router.push("/")
                     },
                     error => {
                         console.log(error.response.data.msg)
-                        console.log('接口报错');
-                    })
-                    .catch(error => {
-                        error
-                        console.log('处理逻辑出错');
+                        let errorMsg = error.response.data.msg
+                        this.errorMsg = errorMsg
+                        this.alert = true
+                        this.verificationCode = ""
+                        this.getVerificationCode()
+                        setTimeout(() => {
+                            this.alert = false
+                        }, 3000)
                     })
             },
-            GetVerificationCode: function () {
+            getVerificationCode: function () {
                 this.url = "/api/login/verifyCode/" + Math.random();
                 this.isDisable = true
                 setTimeout(() => {
@@ -106,8 +131,15 @@
             },
         },
         created() {
-            this.GetVerificationCode();
+            this.getVerificationCode();
 
+        },
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                if (vm.$store.state.isLogin === true) {
+                    vm.$router.replace('/Application')
+                }
+            })
         }
     }
 </script>
@@ -128,6 +160,7 @@
         height: 100%;
         min-width: 1190px;
     }
+
     .login-box {
         height: 80%;
         margin: 0 35%;
